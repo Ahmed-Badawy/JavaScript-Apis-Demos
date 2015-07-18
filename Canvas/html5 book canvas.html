@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	*{
+		margin:0;
+		padding:0;
+	}
+	canvas{
+		height: 1000px;
+		width:1500px;
+		border:2px solid black;
+	}
+	</style>
+</head>
+<body>
+
+<canvas id='mycanvas'></canvas>
+<img src="img_lamp.jpg" id='img1'>
+
+
+<script>
+/*********************************************************************
+Canvas API
+**********************************************************************
+Here are some commonly used drawing commands in the canvasAPI:
+	- beginPath() Start a path segment definition, to be used by a rendering operation, like stroke() or fill()
+	- closePath() Close the path by adding a line segment from the end of the path back to the beginning of the path
+	- moveTo(x, y) Move the registration point for the next relative drawing operation
+	- lineTo(x, y) Create a line path from the current registration point to (x,y)
+	- rect(x, y, width, height) Create  a  rectangle  path  where  (x,y)  is  one  corner,  and  the  diagonally  opposite corner is (x+width,y+height)
+	- arc(x, y, radius, startAngleRadians, endAngleRadians, antiClockwiseDirection) Create a circular arc path (up to a full circle), where (x,y) is the center of the arc, and the arc starts and ends at the given angles (in radians), and moves in either the clockwise or counter-clockwise direction (can only be true|false)
+	- fill() Fill in the most recently defined path segment
+	- stroke() Stroke (render, make visible) the most recent path segment
+	- drawImage(image, ...) Draw an image into the canvasarea
+	- strokeText(text,...) | fillText(text,...) Add text to the canvas
+	- clearRect(x, y, width, height) Clear a rectangular portion of the canvasfrom (x,y) to (x+width,y+height)
+	- strokeStyle=[string|object] | fillStyle=[string|object] Set the color/style attributes for strokes or fills, respectively
+	- clearRect(x,y,width,height); Clear a rectangle within a given rectangle:
+	- lineWidth : property to vary the width of lines used to stroke. 
+	- lineCapproperty : controls how the cap/end of a line segment is rendered (squared off, rounded, etc)
+	- lineJoinproperty : controls how the connection (or joint) between two line segments is drawn
+
+
+- In addition to line styles, you can define custom color styles for both lines and fills. There are two options: gradients and patterns
+- Gradients are a gradual progression from one color to another color (or colors). They can be linear (progresses in a straight line) or radial (progresses radially/circularly from a central point). To use them, you create a gradient object, next set one or more color stopson it, and then use that object as the strokeStyleor fillStyle.
+- Patterns are essentially taking an existing image (even another  canvaselement) and using that as the “color” for a line or fill, where the image in question is repeated as necessary to fill the space required of the color. To use them, you create a pattern object, telling it which image to use and how to repeat, and then use that object as the  stro keStyleor fillStyle.
+
+
+*/
+
+	var canvas = document.getElementById("mycanvas");
+	var context = canvas.getContext("2d");
+	context.beginPath();
+	context.arc(35, 35, 10, 0, Math.PI * 2, true); // draw a circle
+	context.fillStyle = "#f00";
+	context.fill(); // fill the circle solid
+	context.beginPath();
+	context.moveTo(10, 10);
+	context.lineTo(35, 35); // draws a line path from (10,10) to (35,35)
+	// context.strokeStyle = "#000";
+	context.strokeStyle = "green";
+	context.stroke(); // draw the line
+
+
+//drawing line
+	context.beginPath();
+	context.moveTo(35, 35);
+	context.lineTo(30, 70); // draws a line path from (10,10) to (35,35)
+	// context.strokeStyle = "#000";
+	context.strokeStyle = "yellow";
+	context.stroke(); // draw the line
+
+
+//creating two overlaped circles with transparency
+context.beginPath();
+context.moveTo(100, 100);
+context.arc(80, 80, 25, 0, Math.PI * 2, true); // draw a circle
+context.closePath();
+context.fillStyle = "#f00";
+context.fill(); // fill the circle solid
+context.beginPath();
+context.arc(110, 80, 25, 0, Math.PI * 2, true); // draw a circle
+context.closePath();
+context.fillStyle = "rgba(0,0,255,0.5)";
+context.fill(); // fill the circle solid;
+
+
+//creating a stroke with round lineJoin
+context.beginPath();
+context.lineWidth= "5";
+context.lineJoin= "round";
+context.moveTo(200, 50);
+context.lineTo(230, 80);
+context.lineTo(270, 50);
+context.strokeStyle = "black";
+context.stroke();
+
+//createing linear gradient
+var lingrad = context.createLinearGradient(20,20,30,90);
+lingrad.addColorStop(.3, "#0f0");
+lingrad.addColorStop(.7, "#0ff");
+// using the gradient
+context.fillStyle= lingrad;
+context.moveTo(100, 20);
+context.lineTo(130, 50);
+context.lineTo(100, 100);
+context.closePath();
+context.fill();
+
+
+// using pattern as fill
+context.beginPath();
+var img = document.getElementById("img1");
+var imgfill = context.createPattern(img, "no-repeat");
+context.rect(130, 100, 90, 30);
+context.fillStyle = imgfill;
+context.fill();
+
+
+
+	context.closePath();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+Detecting Vibration API Support
+It's always good to check for the presence of API support before using it;  here's how you can detect the Vibration API's presence:
+
+// Standards ftw!
+var supportsVibrate = "vibrate" in navigator;
+The Vibration API consists of only one method provided to the window.navigator object:  vibrate.
+
+Vibration API Basics
+The navigator.vibrate function accepts either a single number or an array of numbers for a series of vibrations. When using the array method, the even indices represent vibration duration, the odd indices represent a delay before the next vibration.
+
+// Vibrate once for one second
+navigator.vibrate(1000);
+
+// Vibrate multiple times for multiple durations
+// Vibrate for three seconds, wait two seconds, then vibrate for one second
+navigator.vibrate([3000, 2000, 1000]);
+To stop vibration when active, simply pass a 0 or an empty array to the navigator.vibrate method:
+
+// Either of these stop vibration
+navigator.vibrate(0);
+navigator.vibrate([]);
+Realize that vibrations do not loop until stopped with 0 or an empty array;  the single number vibration occurs once and then becomes silent, the array of vibration durations run and becomes silent again.
+
+Continued Vibration
+Some basic setInterval and clearInterval action will allow us you to create persistent vibration:
+
+var vibrateInterval;
+
+// Starts vibration at passed in level
+function startVibrate(duration) {
+	navigator.vibrate(duration);
+}
+
+// Stops vibration
+function stopVibrate() {
+	// Clear interval and stop persistent vibrating 
+	if(vibrateInterval) clearInterval(vibrateInterval);
+	navigator.vibrate(0);
+}
+
+// Start persistent vibration at given duration and interval
+// Assumes a number value is given
+function startPeristentVibrate(duration, interval) {
+	vibrateInterval = setInterval(function() {
+		startVibrate(duration);
+	}, interval);
+}

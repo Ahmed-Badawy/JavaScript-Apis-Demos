@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang='ar'>
+<head>
+	<title>hello</title>
+	<meta charset='utf-8' />
+</head>
+<body>
+
+<canvas id="myCanvas" width="300" height="150" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+<h1>أهلا بكم</h1>
+
+
+<script>
+/**********************************************************************
+JavaScript syntax: 	context.font="italic small-caps bold 12px arial";
+Default value: 	10px sans-serif
+
+Property Values
+	
+font-style 	Specifies the font style. Possible values:
+
+    normal
+    italic
+    oblique
+
+		
+font-variant 	Specifies the font variant. Possible values:
+
+    normal
+    small-caps
+
+		
+font-weight 	Specifies the font weight. Possible values:
+
+    normal
+    bold
+    bolder
+    lighter
+    100
+    200
+    300
+    400
+    500
+    600
+    700
+    800
+    900
+
+font-size/line-height 	Specifies the font size and the line-height, in pixels 		
+font-family 	Specifies the font family 		
+caption 	Use the font captioned controls (like buttons, drop-downs, etc.) 		
+icon 	Use the font used to label icons 	
+menu 	Use the font used in menus (drop-down menus and menu lists) 	
+message-box 	Use the font used in dialog boxes 	
+small-caption 	Use the font used for labeling small controls 	
+status-bar 	Use the fonts used in window status bar
+**********************************************************************/
+
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+ctx.font = "30px adobe arabic";
+ctx.fillText("كوكاكولا أحلى مع", 10, 50);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>drawing app</title>
+</head>
+<body style='margin:0'>
+
+<h1>Canvas Drawing</h1>
+
+<canvas id='canvas' style='border:4px double black'>
+	Sorry, Your Browser Doesn't support this app. Please update your browser.
+</canvas>
+
+<script type="text/javascript">
+	var can_elm = document.getElementById('canvas');
+	var context = can_elm.getContext('2d');
+	var radius = 3;
+	var full_circle,x,y;
+
+	// can_elm.width = window.innerWidth;
+	// can_elm.height = window.innerHeight;
+	can_elm.width = 800;
+	can_elm.height = 500;
+
+/*
+		- x & y are the center point of my arc.
+		- radius : r of the circle 
+		- startAngle: the start of the arc.
+		- endAngle: end of the arc.
+		- angiclockwise: move colockwise or reversed.
+		context.arc(x,y, radius , startAngle,endAngel, [antiClockwise])
+*/
+
+	var putPoint = function(e){
+		context.beginPath();
+		x = e.offsetX==undefined?e.layerX:e.offsetX;
+		y = e.offsetY==undefined?e.layerY:e.offsetY;
+		full_circle = Math.PI*2; // full 360 degree means full circle
+		context.arc(x , y ,radius,0,Math.PI*2);
+		context.fill();
+	}
+
+	can_elm.addEventListener('mousedown',putPoint,false);
+
+
+</script>
+
+
+
+
+
+</body>
+</html>

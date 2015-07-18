@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	img {
+		float: left;
+		margin-right:20px;
+		transition:all .3s ease-out;
+		cursor: pointer;
+	}
+	#dz1{
+		background-color:yellow;
+		width:200px;
+		height:200px;
+		float: left;
+		transition:all .3s ease-out;
+	}
+	hr{
+		clear:both;
+	}
+
+	.moving {
+		opacity: 0.25;
+		transform: scale(0.8);
+	}
+	.over {
+		opacity: 0.9;
+		transform: scale(1.1);
+	}
+	</style>
+</head>
+
+<body>
+
+<img id='img1' src="files/img1.jpg" width="200" height='200' draggable='true'>
+<div id='dz1'>dz1</div>
+
+<hr>
+
+<h1 id='header1'></h1>
+<h1 id='header3'></h1>
+<h3 id='header2'></h3>
+<h3 id='header4'></h3>
+
+
+
+<script type="text/javascript">
+
+
+	function find(id){
+		elm = document.getElementById(id);
+		return elm;
+	}
+
+
+	var draggingcounter = 0;
+	function dragging(){
+		draggingcounter++;
+		find('img1').className = "moving";
+		find("header2").innerHTML = "img Count: "+draggingcounter;
+	}
+	function dragging_end(){
+		find('img1').className = "undefined";
+		find("header1").innerHTML = "img Status: Drag Ended";
+	}
+	function handleDragStart(){
+		find("header1").innerHTML = "img Status: Drag Started";
+	}
+	function drag_enter(){
+		find("dz1").className = "over";
+		find("header3").innerHTML = "zropzone Status: Enter dz1";
+	}
+	function drag_leave(){
+		find("dz1").className = "undefined";
+		find("header3").innerHTML = "zropzone Status: Leave dz1";
+	}
+
+	var overcounter = 0;
+	function drag_over(e){
+		overcounter++;
+		find("header4").innerHTML = "zropzone DragOver Count: "+overcounter;
+		//this line is important for the drop event to work... don't ask why. just do it.
+		e.preventDefault(); return false;
+	}
+	function drop(e){
+		find("dz1").className = "undefined";
+		find("header3").innerHTML = "zropzone Status: Dropped Over dz1";			
+		e.preventDefault(); return false;	
+	}
+
+
+//third pram is false for the event bubling...
+	find("img1").addEventListener('drag',dragging,false);
+	find("img1").addEventListener('dragstart',handleDragStart,false);
+	find("img1").addEventListener('dragend',dragging_end,false);
+
+	find("dz1").addEventListener('dragenter',drag_enter,false);
+	find("dz1").addEventListener('dragleave',drag_leave,false);
+	find("dz1").addEventListener('dragover',drag_over,false);
+
+	find("dz1").addEventListener('drop',drop,false);
+
+</script>
+
+</body>
+</html>	

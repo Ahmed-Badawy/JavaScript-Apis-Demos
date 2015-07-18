@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title></title>
+</head>
+<body>
+
+	<a href="#" id="perm"><h3>Request Permisssion</h3></a>
+	<a href="#" id="trigger"><h3>Trigger</h3></a>
+
+
+
+<script type="text/javascript">
+	var btn1 = document.getElementById("perm");	
+	var btn2 = document.getElementById("trigger");	
+
+	btn1.addEventListener('click',function(e){
+		e.preventDefault();
+		if(!window.Notification){
+			alert("sorry, Notification are not Supported...");
+		}else{
+			Notification.requestPermission(function(p){
+				if(p=='denied') alert("Why Did You Deny our Notifications ? \n for better experience please allow it.");
+				if(p=='granted'){
+					alert("thanks for granting us permission to alert you...");
+				}
+			})
+		}
+	});
+
+	var tag = 0;
+	btn2.addEventListener('click',function(e){
+		var notify;
+		tag++;
+		e.preventDefault();
+		// console.log(Notification.permission);
+		if(Notification.permission=='default'){
+			alert('please allow notification for our website...')
+		}else{
+			// alert("hi");
+			notify = new Notification('New Message from badawika',{
+				body: "Click Me - Tag: "+tag,
+				icon: "1.jpg",
+				tag: tag //tag identify each message...
+			});
+			notify.onclick = function(){
+				console.log(this);
+				window.location = 'http://google.com';
+			}
+		}
+	});
+
+</script>
+
+</body>
+</html>
